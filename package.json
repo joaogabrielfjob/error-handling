@@ -3,13 +3,17 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "type":"module",
-  "scripts": { },
+  "type": "module",
+  "scripts": {},
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@types/node": "^20.11.28",
+    "prisma": "^5.11.0",
     "typescript": "^5.4.2"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.11.0"
   }
 }

@@ -7,13 +7,13 @@ export class CreateUser {
   
   constructor(private repo: UserRepository) { }
 
-  handle({ name, email, password }: CreateUserRequest) {
+  async handle({ name, email, password }: CreateUserRequest) {
     const user = new User({ name, email, password })
 
-    const duplicatedUser = this.repo.read(email)
+    const duplicatedUser = await this.repo.read(email)
 
     if (duplicatedUser) throw new Error('Email already registered!')
 
-    this.repo.create(user)
+    await this.repo.create(user)
   }
 }
