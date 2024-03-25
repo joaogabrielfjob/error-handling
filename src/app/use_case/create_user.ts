@@ -1,5 +1,5 @@
-import { User } from '../entity/user.js'
-import { UserRepository } from '../repository/user_repository.js'
+import { User } from '../../domain/entity/user.js'
+import { UserRepository } from '../../domain/repository/user_repository.js'
 
 type CreateUserRequest = { name: string, email: string, password: string }
 
