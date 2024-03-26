@@ -5,14 +5,14 @@ type CreateUserRequest = { name: string, email: string, password: string }
 
 export class CreateUser {
   
-  constructor(private repo: UserRepository) { }
+  constructor(readonly repo: UserRepository) { }
 
-  async handle({ name, email, password }: CreateUserRequest) {
+  async do({ name, email, password }: CreateUserRequest): Promise<Error | void> {
     const user = new User({ name, email, password })
 
     const duplicatedUser = await this.repo.read(email)
 
-    if (duplicatedUser) throw new Error('Email already registered!')
+    if (duplicatedUser instanceof User) return new Error('Email already registered!')
 
     await this.repo.create(user)
   }

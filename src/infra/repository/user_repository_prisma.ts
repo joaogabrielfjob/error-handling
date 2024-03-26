@@ -4,25 +4,25 @@ import { UserRepository } from '../../domain/repository/user_repository.js'
 
 export class UserRepositoryPrisma implements UserRepository {
 
-  constructor(private prisma: PrismaClient) { }
+  constructor(private prisma = new PrismaClient()) { }
 
-  async create({ name, email, password }: User): Promise<void> {
+  async create({ name, email, password }: User): Promise<Error | void> {
     try {
       await this.prisma.user.create({
         data: { name, email, password }
       })
     } catch(exception) {
-      throw new Error('Unable to create user!')
+      return new Error('Unable to create user!')
     }
   }
 
-  async read(email: string): Promise<User> {
+  async read(email: string): Promise<Error | User> {
     try {
       const user = await this.prisma.user.findUniqueOrThrow({ where: { email } })
 
       return new User({ ...user })
     } catch(exception) {
-      throw new Error('Unable to find user!')
+      return new Error('Unable to find user!')
     }
   }
 }
